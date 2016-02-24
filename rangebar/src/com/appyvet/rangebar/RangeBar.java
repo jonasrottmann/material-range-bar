@@ -395,20 +395,19 @@ public class RangeBar extends View {
         super.onDraw(canvas);
 
         mBar.draw(canvas);
+
         if (mIsRangeBar) {
             mConnectingLine.draw(canvas, mLeftThumb, mRightThumb);
-            if (drawTicks) {
-                mBar.drawTicks(canvas);
-            }
             mLeftThumb.draw(canvas);
         } else {
             mConnectingLine.draw(canvas, getMarginLeft(), mRightThumb);
-            if (drawTicks) {
-                mBar.drawTicks(canvas);
-            }
         }
-        mRightThumb.draw(canvas);
 
+        if (drawTicks) {
+            mBar.drawTicks(canvas);
+        }
+
+        mRightThumb.draw(canvas);
     }
 
     @Override

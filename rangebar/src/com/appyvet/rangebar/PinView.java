@@ -6,9 +6,9 @@
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" 
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language 
- * governing permissions and limitations under the License. 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 
 package com.appyvet.rangebar;
@@ -267,8 +267,8 @@ class PinView extends View {
         //Draw pin if pressed
         if (mPinRadiusPx > 0 && (mHasBeenPressed || !mPinsAreTemporary)) {
             mBounds.set((int) mX - mPinRadiusPx,
-                    (int) mY - (mPinRadiusPx * 2) - (int) mPinPadding,
-                    (int) mX + mPinRadiusPx, (int) mY - (int) mPinPadding);
+                    (int) mY - (mPinRadiusPx * 2) - (int) mPinPadding - (int) mCircleRadiusPx,
+                    (int) mX + mPinRadiusPx, (int) mY - (int) mPinPadding - (int) mCircleRadiusPx);
             mPin.setBounds(mBounds);
             String text = mValue;
 
@@ -282,7 +282,7 @@ class PinView extends View {
             mPin.setColorFilter(mPinFilter);
             mPin.draw(canvas);
             canvas.drawText(text,
-                    mX, mY - mPinRadiusPx - mPinPadding + mTextYPadding,
+                    mX, mY - mPinRadiusPx - mPinPadding - mCircleRadiusPx + mTextYPadding,
                     mTextPaint);
         }
         super.draw(canvas);

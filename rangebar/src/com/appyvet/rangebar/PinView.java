@@ -20,7 +20,9 @@ import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
@@ -125,6 +127,24 @@ class PinView extends View {
      */
     public void init(Context ctx, float y, float pinRadiusDP, int pinColor, int textColor,
             float circleRadius, int circleColor, float minFont, float maxFont, boolean pinsAreTemporary) {
+        this.init(ctx, y, pinRadiusDP, pinColor, textColor, circleRadius, circleColor, null,  minFont, maxFont, pinsAreTemporary);
+    }
+    /**
+     * The view is created empty with a default constructor. Use init to set all the initial
+     * variables for the pin
+     *
+     * @param ctx          Context
+     * @param y            The y coordinate to raw the pin (i.e. the bar location)
+     * @param pinRadiusDP  the initial size of the pin
+     * @param pinColor     the color of the pin
+     * @param textColor    the color of the value text in the pin
+     * @param circleRadius the radius of the selector circle
+     * @param minFont  the minimum font size for the pin text
+     * @param maxFont  the maximum font size for the pin text
+     * @param pinsAreTemporary  whether to show the pin initially or just the circle
+     */
+    public void init(Context ctx, float y, float pinRadiusDP, int pinColor, int textColor,
+            float circleRadius, int circleColor, @Nullable String fontPath, float minFont, float maxFont, boolean pinsAreTemporary) {
 
         mRes = ctx.getResources();
         mPin = ContextCompat.getDrawable(ctx, R.drawable.rotate);
@@ -159,6 +179,10 @@ class PinView extends View {
         mTextPaint.setColor(textColor);
         mTextPaint.setAntiAlias(true);
         mTextPaint.setTextSize(textSize);
+
+        if(fontPath != null){
+            mTextPaint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), fontPath));
+        }
         // Creates the paint and sets the Paint values
         mCirclePaint = new Paint();
         mCirclePaint.setColor(circleColor);

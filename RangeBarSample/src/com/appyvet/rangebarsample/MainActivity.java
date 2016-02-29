@@ -1,7 +1,7 @@
 
 package com.appyvet.rangebarsample;
 
-import com.appyvet.rangebar.RangeBar;
+import de.fluidmobile.rangebar.RangeBar;
 import com.appyvet.rangebarsample.colorpicker.ColorPickerDialog;
 import com.appyvet.rangebarsample.colorpicker.Utils;
 

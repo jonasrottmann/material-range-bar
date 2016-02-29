@@ -11,13 +11,12 @@
  * governing permissions and limitations under the License.
  */
 
-package com.appyvet.rangebar;
+package de.fluidmobile.rangebar;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -27,6 +26,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 
+
 /**
  * Represents a thumb in the RangeBar slider. This is the handle for the slider
  * that is pressed and slid.
@@ -34,6 +34,7 @@ import android.view.View;
 class PinView extends View {
 
     // Private Constants ///////////////////////////////////////////////////////
+
 
     // The radius (in dp) of the touchable area around the thumb. We are basing
     // this value off of the recommended 48dp Rhythm. See:
@@ -94,6 +95,7 @@ class PinView extends View {
     private boolean mPinsAreTemporary;
 
     private boolean mHasBeenPressed = false;
+    private boolean mShowPinBackground;
 
     // Constructors ////////////////////////////////////////////////////////////
 
@@ -127,7 +129,7 @@ class PinView extends View {
      */
     public void init(Context ctx, float y, float pinRadiusDP, int pinColor, int textColor,
             float circleRadius, int circleColor, float minFont, float maxFont, boolean pinsAreTemporary) {
-        this.init(ctx, y, pinRadiusDP, pinColor, textColor, circleRadius, circleColor, null,  minFont, maxFont, pinsAreTemporary);
+        this.init(ctx, y, pinRadiusDP, pinColor, true, textColor, circleRadius, circleColor, null,  minFont, maxFont, pinsAreTemporary);
     }
     /**
      * The view is created empty with a default constructor. Use init to set all the initial
@@ -143,11 +145,11 @@ class PinView extends View {
      * @param maxFont  the maximum font size for the pin text
      * @param pinsAreTemporary  whether to show the pin initially or just the circle
      */
-    public void init(Context ctx, float y, float pinRadiusDP, int pinColor, int textColor,
+    public void init(Context ctx, float y, float pinRadiusDP, int pinColor, boolean showPinBackground, int textColor,
             float circleRadius, int circleColor, @Nullable String fontPath, float minFont, float maxFont, boolean pinsAreTemporary) {
+        mShowPinBackground = showPinBackground;
 
         mRes = ctx.getResources();
-        mPin = ContextCompat.getDrawable(ctx, R.drawable.rotate);
 
         mDensity = getResources().getDisplayMetrics().density;
         mMinPinFont = minFont / mDensity;
@@ -189,7 +191,10 @@ class PinView extends View {
         mCirclePaint.setAntiAlias(true);
 
         //Color filter for the selection pin
-        mPinFilter = new LightingColorFilter(pinColor, pinColor);
+        if(mShowPinBackground) {
+            mPin = ContextCompat.getDrawable(ctx, R.drawable.rotate);
+            mPinFilter = ColorMatrixColorFilterFactory.getOverrideColorMatrix(pinColor);
+        }
 
         // Sets the minimum touchable area, but allows it to expand based on
         // image size
@@ -293,7 +298,6 @@ class PinView extends View {
             mBounds.set((int) mX - mPinRadiusPx,
                     (int) mY - (mPinRadiusPx * 2) - (int) mPinPadding - (int) mCircleRadiusPx,
                     (int) mX + mPinRadiusPx, (int) mY - (int) mPinPadding - (int) mCircleRadiusPx);
-            mPin.setBounds(mBounds);
             String text = mValue;
 
             if (this.formatter != null) {
@@ -303,8 +307,13 @@ class PinView extends View {
             calibrateTextSize(mTextPaint, text, mBounds.width());
             mTextPaint.getTextBounds(text, 0, text.length(), mBounds);
             mTextPaint.setTextAlign(Paint.Align.CENTER);
-            mPin.setColorFilter(mPinFilter);
-            mPin.draw(canvas);
+
+            if(mShowPinBackground) {
+                mPin.setBounds(mBounds);
+                mPin.setColorFilter(mPinFilter);
+                mPin.draw(canvas);
+            }
+
             canvas.drawText(text,
                     mX, mY - mPinRadiusPx - mPinPadding - mCircleRadiusPx + mTextYPadding,
                     mTextPaint);

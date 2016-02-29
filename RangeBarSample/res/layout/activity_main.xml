@@ -20,7 +20,7 @@
             android:background="@color/indigo500"
             android:textColor="@color/white"/>
 
-    <com.appyvet.rangebar.RangeBar
+    <de.fluidmobile.rangebar.RangeBar
             xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/rangebar1"
             android:layout_width="match_parent"

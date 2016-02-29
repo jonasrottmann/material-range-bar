@@ -1,4 +1,4 @@
-package com.appyvet.rangebar;
+package de.fluidmobile.rangebar;
 
 /**
  * Created by franciscomorais on 24/06/15.

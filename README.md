@@ -75,7 +75,7 @@ Examples
 
 This is a rangebar with both a lower and upper value
 ```xml
-<com.appyvet.rangebar.RangeBar
+<de.fluidmobile.rangebar.RangeBar
         xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/rangebar"
         android:layout_width="match_parent"
@@ -89,7 +89,7 @@ This is a rangebar with both a lower and upper value
 
 This is a seekbar with only a single value (note rangeBar=false)
 ```xml
-<com.appyvet.rangebar.RangeBar
+<de.fluidmobile.rangebar.RangeBar
         xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/rangebar"
         android:layout_width="match_parent"
@@ -114,7 +114,7 @@ rangebar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
 ## Adding a formatter
 Formats the text inside the pin.
 - Add a formater - IRangeBarFormatter which will return the value of the current text inside of the pin
-- Transform string s into any string you want and return the newly formated string. 
+- Transform string s into any string you want and return the newly formated string.
 ```java
 rangebar.setFormatter(new IRangeBarFormatter() {
             @Override

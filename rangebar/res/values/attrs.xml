@@ -18,6 +18,7 @@
         <attr name="rangeBarPaddingBottom" format="dimension" />
         <attr name="selectorColor" format="reference|color" />
         <attr name="rangeBar" format="boolean" />
+        <attr name="showPinBackground" format="boolean" />
         <attr name="temporaryPins" format="boolean" />
         <attr name="connectingLineWeight" format="dimension" />
         <attr name="connectingLineColor" format="reference|color" />
